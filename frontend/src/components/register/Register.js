@@ -15,6 +15,8 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { CopyRight } from "../copyright/CopyRight";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const signUpValidationSchema = Yup.object().shape({
   username: Yup.string()
@@ -36,6 +38,7 @@ const signUpValidationSchema = Yup.object().shape({
 });
 
 function Register() {
+  const navigate = useNavigate();
   const initialValues = {
     username: "",
     email: "",
@@ -45,12 +48,23 @@ function Register() {
 
   const handleSubmit = (values, { resetForm }) => {
     // console.log(values);
-    alert(
-      `username: ${values.username}
-      email: ${values.email}
-      password: ${values.password}
-      password2: ${values.password2}`
-    );
+
+    const addUserToStorage = async () => {
+      let user = {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      };
+      let res = await axios.post(
+        "http://localhost:4000/api/users/signup",
+        user
+      );
+      let data = res.data;
+      console.log(data);
+    };
+    addUserToStorage();
+    navigate("/signin");
+
     resetForm();
   };
 

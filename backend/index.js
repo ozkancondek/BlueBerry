@@ -10,6 +10,7 @@ const comments = [{ cityId: 5, comment: "iyi", username: "at" }];
 
 const users = [];
 //add new card to ui
+console.log(users);
 
 app.get("/api/cities", function (req, res) {
   const pageNum = req.query.page;
@@ -29,17 +30,19 @@ app.get("/api/cities/:id", function (req, res) {
 });
 
 app.post("/api/users/signup", function (req, res) {
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
   const user = users.find((u) => u.email === email);
   if (user) {
     res.status(409).json({ message: "You have already an account" });
+
     return;
   } else {
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(password, salt);
-    users.push({ email, password: hash });
 
-    res.send("added");
+    users.push({ username, email, password: hash });
+
+    res.send(users);
   }
 });
 app.post("/api/users/signin", function (req, res) {

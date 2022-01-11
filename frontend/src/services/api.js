@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const Api = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com",
+const Register = axios.create({
+  baseURL: "http://localhost:4000/api/users",
   /* timeout:"10000" wait for 10 sec */
 });
 
@@ -16,27 +16,28 @@ export const fetchData = async (pageNum) => {
     return res.data;
   }
 };
-export const fetchData2 = async () => {
-  let res = await axios({
-    method: "GET",
-    url: "https://jsonplaceholder.typicode.com/todos/1",
-  });
-  return res.data;
-};
 
-const fetchData3 = async () => {
-  try {
-    let res = await Api({
-      url: "/todos/1",
-    });
-    return res.data;
-  } catch (error) {
-    return error;
-  }
-};
+// export const fetchData2 = async () => {
+//   let res = await axios({
+//     method: "GET",
+//     url: "https://jsonplaceholder.typicode.com/todos/1",
+//   });
+//   return res.data;
+// };
+
+// const fetchData3 = async () => {
+//   try {
+//     let res = await Api({
+//       url: "/todos/1",
+//     });
+//     return res.data;
+//   } catch (error) {
+//     return error;
+//   }
+// };
 
 export const initialServices = {
   fetchData,
-  fetchData2,
-  fetchData3,
+  // fetchData2,
+  // fetchData3,
 };
