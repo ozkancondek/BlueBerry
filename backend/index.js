@@ -23,14 +23,11 @@ app.get("/api/cities", function (req, res) {
   }
 });
 
-app.get("/api/cities/comments", function (req, res) {
-  res.send(comments);
-});
-
 app.get("/api/cities/:id", function (req, res) {
   const selectedCity = data.find((c) => c.id === parseInt(req.params.id));
   res.send(selectedCity);
 });
+
 app.post("/api/users/signup", function (req, res) {
   const { email, password } = req.body;
   const user = users.find((u) => u.email === email);
@@ -41,7 +38,7 @@ app.post("/api/users/signup", function (req, res) {
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(password, salt);
     users.push({ email, password: hash });
-    console.log(users);
+
     res.send("added");
   }
 });
@@ -60,6 +57,7 @@ app.post("/api/users/signin", function (req, res) {
     }
   }
 });
+
 app.post("/api/cities/comments", function (req, res) {
   const { cityId, comment, username } = req.body;
 
@@ -68,8 +66,10 @@ app.post("/api/cities/comments", function (req, res) {
   res.send(true);
 });
 
+app.get("/api/cities/comments", function (req, res) {
+  res.send(comments);
+});
 app.get("/api/cities/comments/:id", function (req, res) {
-  console.log("here");
   const { id } = req.params;
 
   const commnetsById = comments.filter((c) => c.cityId === +id);

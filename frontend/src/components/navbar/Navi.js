@@ -29,7 +29,6 @@ export const Navi = () => {
       }
     >
       <Container fluid>
-        <Toggle />
         <Navbar.Brand>
           <Nav.Link eventKey="home" className="underline">
             <FaRaspberryPi
@@ -92,6 +91,9 @@ export const Navi = () => {
           >
             Sign-up
           </Nav.Link>
+          <div className="toggleDiv">
+            <Toggle />
+          </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>
