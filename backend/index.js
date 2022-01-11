@@ -29,11 +29,15 @@ app.get("/api/cities/:id", function (req, res) {
   res.send(selectedCity);
 });
 
+app.get("/api/users", function (req, res) {
+  res.send(users);
+});
 app.post("/api/users/signup", function (req, res) {
   const { username, email, password } = req.body;
   const user = users.find((u) => u.email === email);
   if (user) {
-    res.status(409).json({ message: "You have already an account" });
+    //res.status(409).json({ message: "You have already an account" });
+    res.send("You have already an account");
 
     return;
   } else {

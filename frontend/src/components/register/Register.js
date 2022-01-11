@@ -55,12 +55,17 @@ function Register() {
         email: values.email,
         password: values.password,
       };
-      let res = await axios.post(
-        "http://localhost:4000/api/users/signup",
-        user
-      );
-      let data = res.data;
-      console.log(data);
+
+      try {
+        let res = await axios.post(
+          "http://localhost:4000/api/users/signup",
+          user
+        );
+        let data = res.data;
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     addUserToStorage();
     navigate("/signin");
