@@ -78,7 +78,7 @@ app.post("/api/users/signin", function (req, res) {
 });
 
 //add comment
-app.post("/api/cities/comments", function (req, res) {
+app.post("/api/city/comments", function (req, res) {
   const { cityId, comment, username } = req.body;
 
   comments.push({ cityId, comment, username });
@@ -87,12 +87,12 @@ app.post("/api/cities/comments", function (req, res) {
 });
 
 //show all commnets
-app.get("/api/cities/comments", function (req, res) {
+app.get("/api/city/comments", function (req, res) {
   res.send(comments);
 });
 
 //get single comments
-app.get("/api/cities/comments/:id", function (req, res) {
+app.get("/api/city/comments/:id", function (req, res) {
   const { id } = req.params;
 
   const commentsById = comments.filter((c) => c.cityId === +id);

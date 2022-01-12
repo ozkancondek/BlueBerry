@@ -23,7 +23,7 @@ import axios from "axios";
 
 export const ClickCity = () => {
   const { isAuthenticated, date } = useOut();
-  const [comments, setComments] = useState();
+  const [comments, setComments] = useState([]);
   const [cityById, setCityById] = useState([]);
 
   //const[filteredCity,setFilteredCity] = useState()
@@ -172,7 +172,7 @@ export const ClickCity = () => {
       </DetailsBar>
       {showComment && (
         <CommentContainer>
-          {/*  {comments.map((comment) => {
+          {comments.map((comment) => {
             <Comment>
               <h4>
                 {" "}
@@ -181,7 +181,7 @@ export const ClickCity = () => {
               </h4>
               <p>{comment.comment} </p>
             </Comment>;
-          })} */}
+          })}
 
           <Comment>
             <h4> {<FaUserCircle />} Anna commented on 12 december</h4>
