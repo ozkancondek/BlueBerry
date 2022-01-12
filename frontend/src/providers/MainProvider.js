@@ -9,6 +9,9 @@ export const MainProvider = (props) => {
   const [pageNum, setPageNum] = useState(1);
 
   const [favList, setFavList] = useState([]);
+  var today = new Date();
+  var date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
   const localData = () => {
     const response = localStorage.getItem("localData");
@@ -36,6 +39,7 @@ export const MainProvider = (props) => {
         pageNum,
         setShowComment,
         showComment,
+        date,
       }}
     >
       {props.children}

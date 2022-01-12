@@ -57,6 +57,7 @@ export const TextContainer = styled.div`
     }
   }
   background-color: #6082fe;
+  overflow: scroll;
   width: 300px;
   height: 450px;
   display: flex;

@@ -7,7 +7,10 @@ app.use(express.json());
 var cors = require("cors");
 app.use(cors());
 
-const comments = [{ cityId: 5, comment: "iyi", username: "at" }];
+const comments = [
+  { cityId: 5, comment: "iyi", username: "at" },
+  { cityId: 5, comment: "kotu", username: "ozkan" },
+];
 
 const users = [];
 //add new card to ui
@@ -50,7 +53,7 @@ app.post("/api/users/signup", function (req, res) {
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(password, salt);
 
-    users.push({ username, email, password: hash });
+    users = [...users, { username, email, password: hash }];
 
     res.send("Account created");
   }
@@ -80,19 +83,24 @@ app.post("/api/cities/comments", function (req, res) {
 
   comments.push({ cityId, comment, username });
 
-  res.send(true);
+  res.send(comments);
 });
 
 //show all commnets
 app.get("/api/cities/comments", function (req, res) {
-  res.send(comments);
+  res.send("comments");
 });
+
+//get single comments
 app.get("/api/cities/comments/:id", function (req, res) {
   const { id } = req.params;
 
-  const commnetsById = comments.filter((c) => c.cityId === +id);
-
-  res.send(commnetsById);
+  const commentsById = comments.filter((c) => c.cityId === +id);
+  if (commentsById.length == 0) {
+    res.send("There is no comment.");
+  } else {
+    res.send(commentsById);
+  }
 });
 
 app.listen(4000, () => console.log("listening"));
