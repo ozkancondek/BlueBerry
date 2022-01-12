@@ -14,6 +14,7 @@ import {
 } from "./CardStyles";
 import { useApi } from "../../providers/ApiProvider";
 import { useEffect, useState } from "react";
+import { AddNewPlace } from "../addNewPlace/AddNewPlace";
 
 export const Cards = () => {
   const { favList, setPageNum, pageNum } = useOut();
@@ -62,6 +63,9 @@ export const Cards = () => {
 
       <div className="add-new-place-button">
         <Button variant="secondary">Add New Place</Button>
+      </div>
+      <div>
+        <AddNewPlace />
       </div>
 
       <Container className="text-center mt-4 height:500px">
