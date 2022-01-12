@@ -1,6 +1,7 @@
 var express = require("express");
 var bcrypt = require("bcryptjs");
 var data = require("./resource/data.js");
+//var users = require("./resource/users.js");
 var app = express();
 app.use(express.json());
 var cors = require("cors");
@@ -12,6 +13,7 @@ const users = [];
 //add new card to ui
 console.log(users);
 
+//show all cities or with page number
 app.get("/api/cities", function (req, res) {
   const pageNum = req.query.page;
   if (!pageNum) {
@@ -24,14 +26,18 @@ app.get("/api/cities", function (req, res) {
   }
 });
 
+//show particular city with id number
 app.get("/api/cities/:id", function (req, res) {
   const selectedCity = data.find((c) => c.id === parseInt(req.params.id));
   res.send(selectedCity);
 });
 
+//show users
 app.get("/api/users", function (req, res) {
   res.send(users);
 });
+
+//add new user to users
 app.post("/api/users/signup", function (req, res) {
   const { username, email, password } = req.body;
   const user = users.find((u) => u.email === email);
@@ -46,9 +52,11 @@ app.post("/api/users/signup", function (req, res) {
 
     users.push({ username, email, password: hash });
 
-    res.send(users);
+    res.send("Account created");
   }
 });
+
+//find user in users
 app.post("/api/users/signin", function (req, res) {
   const { email, password } = req.body;
   const user = users.find((u) => u.email === email);
@@ -58,13 +66,15 @@ app.post("/api/users/signin", function (req, res) {
   } else {
     const isCorrectPass = bcrypt.compareSync(password, user.password); // true
     if (isCorrectPass) {
-      res.json({ message: "success", res: isCorrectPass });
+      // res.json({ message: "success", res: isCorrectPass });
+      res.send(`Signed as ${user.username}`);
     } else {
       res.status(403).json({ message: "Wrong pass" });
     }
   }
 });
 
+//add comment
 app.post("/api/cities/comments", function (req, res) {
   const { cityId, comment, username } = req.body;
 
@@ -73,6 +83,7 @@ app.post("/api/cities/comments", function (req, res) {
   res.send(true);
 });
 
+//show all commnets
 app.get("/api/cities/comments", function (req, res) {
   res.send(comments);
 });

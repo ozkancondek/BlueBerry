@@ -1,11 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { data } from "../data";
-import { useTheme } from "./ThemeProvider";
 
 const OuterContext = createContext();
 
 export const MainProvider = (props) => {
-  const [isAuthenticated, setIsAutenticated] = useState(true);
+  const [isAuthenticated, setIsAutenticated] = useState(false);
   const [pageNum, setPageNum] = useState(1);
 
   const [favList, setFavList] = useState([]);

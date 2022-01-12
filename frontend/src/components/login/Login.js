@@ -14,6 +14,7 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { CopyRight } from "../copyright/CopyRight";
+import axios from "axios";
 
 const signUpValidationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is required"),
@@ -31,6 +32,25 @@ const Login = () => {
     password: "",
   };
   const handleSubmit = (values, { resetForm }) => {
+    const authfFunc = async () => {
+      let user = {
+        email: values.email,
+        password: values.password,
+      };
+
+      try {
+        let res = await axios.post(
+          "http://localhost:4000/api/users/signin",
+          user
+        );
+        let data = res.data;
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    authfFunc();
+
     alert(
       ` 
       email: ${values.email}

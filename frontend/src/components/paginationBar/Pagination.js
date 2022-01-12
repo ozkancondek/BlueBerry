@@ -31,9 +31,9 @@ export const Pagination = () => {
         <a href="#" onClick={() => setPageNum(items[0])}>
           &laquo;
         </a>
-        {items.map((num) => {
+        {items.map((num, index) => {
           return (
-            <a href="#" onClick={() => setPageNum(num)}>
+            <a key={index} href="#" onClick={() => setPageNum(num)}>
               {num}
             </a>
           );
