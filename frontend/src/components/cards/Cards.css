@@ -86,3 +86,16 @@
   margin-top: 6px;
   cursor: pointer;
 }
+
+.add-new-place-button {
+  border-bottom: 4px solid rgba(121, 119, 119, 0.8);
+  width: 20%;
+  margin: auto;
+  margin-top: 50px;
+  padding: 10px;
+  transition: width 1s;
+}
+
+.add-new-place-button:hover {
+  width: 60%;
+}

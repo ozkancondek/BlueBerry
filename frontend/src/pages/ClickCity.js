@@ -65,7 +65,7 @@ export const ClickCity = () => {
       let comment = {
         cityId: "2",
         comment: e.target.children[1].value,
-        username: "anawdawdna",
+        username: "anawdawdna", //define a state in mainProvider and set when user signed in- then call it here
       };
 
       try {

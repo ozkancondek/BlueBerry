@@ -88,7 +88,7 @@ app.post("/api/cities/comments", function (req, res) {
 
 //show all commnets
 app.get("/api/cities/comments", function (req, res) {
-  res.send("comments");
+  res.send(comments);
 });
 
 //get single comments

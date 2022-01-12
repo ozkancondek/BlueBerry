@@ -6,7 +6,7 @@ import "./Cards.css";
 
 import { useSearch } from "../../providers/SearchProvider";
 import { useOut } from "../../providers/MainProvider";
-import { Container, Row } from "react-bootstrap";
+import { Button, Container, Row } from "react-bootstrap";
 import {
   ImageContainer,
   TextContainer,
@@ -59,6 +59,11 @@ export const Cards = () => {
           </p>
         </TextContainer>
       </TextPhotoContainer>
+
+      <div className="add-new-place-button">
+        <Button variant="secondary">Add New Place</Button>
+      </div>
+
       <Container className="text-center mt-4 height:500px">
         <Row className="d-flex justify-content-center">{filteredData}</Row>
       </Container>

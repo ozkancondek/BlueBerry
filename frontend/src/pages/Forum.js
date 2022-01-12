@@ -13,7 +13,7 @@ export const Forum = () => {
   const { date } = useOut();
 
   useEffect(() => {
-    const commentsById = async (id) => {
+    const getAllCommentsFromBackend = async (id) => {
       try {
         let res = await axios("http://localhost:4000/api/cities/comments");
 
@@ -31,7 +31,7 @@ export const Forum = () => {
       }
     };
     fetch();
-    commentsById();
+    getAllCommentsFromBackend();
   }, [getPost]);
 
   console.log(comments);
