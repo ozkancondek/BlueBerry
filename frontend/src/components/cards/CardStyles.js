@@ -78,10 +78,17 @@ export const DetailsBar = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+
   width: 900px;
   margin: auto;
   padding: 10px;
   margin-bottom: 20px;
+  @media (max-width: 900px) {
+    width: 600px;
+  }
+  @media (max-width: 600px) {
+    width: 500px;
+  }
 `;
 
 export const IconContainer = styled.div`
@@ -92,5 +99,31 @@ export const IconContainer = styled.div`
   &:hover {
     -webkit-transform: scale(1.5);
     transform: scale(1.5);
+  }
+`;
+
+export const CommentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  border: 5px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+
+  width: 80%;
+  margin: auto;
+  margin-bottom: 20px;
+`;
+
+export const Comment = styled.div`
+  border-bottom: 3px solid grey;
+  font-family: "Playfair Display", serif;
+
+  & > h4 {
+    fonst-size: 1.3rem;
+  }
+  & > h4 {
+    fonst-size: 1.2rem;
   }
 `;

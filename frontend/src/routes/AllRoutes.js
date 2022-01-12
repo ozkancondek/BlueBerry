@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import { Cities } from "../pages/Cities";
 import { ClickCity } from "../pages/ClickCity";
+import { Forum } from "../pages/Forum";
 import { Home } from "../pages/Home";
 import { SignIn } from "../pages/Signin";
 import { SignUp } from "../pages/SignUp";
@@ -18,6 +19,7 @@ export const AllRoutes = () => {
       <Route path="/cities" element={<Cities />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signin" element={<SignIn />} />
+      <Route path="/forum" element={<Forum />} />
     </Routes>
   );
 };

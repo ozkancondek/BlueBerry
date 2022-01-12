@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LockOutlined } from "@mui/icons-material";
 import {
   Avatar,
@@ -15,6 +15,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { CopyRight } from "../copyright/CopyRight";
 import axios from "axios";
+import { useOut } from "../../providers/MainProvider";
+import { useNavigate } from "react-router-dom";
 
 const signUpValidationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is required"),
@@ -27,6 +29,8 @@ const signUpValidationSchema = Yup.object().shape({
     .matches(/[!?.@#$%^&*()-+]+/, "Password must have a special char"),
 });
 const Login = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated, setIsAutenticated } = useOut();
   const initialValues = {
     email: "",
     password: "",
@@ -50,13 +54,9 @@ const Login = () => {
       }
     };
     authfFunc();
-
-    alert(
-      ` 
-      email: ${values.email}
-      password: ${values.password}
-      `
-    );
+    navigate("/");
+    setIsAutenticated(true);
+    console.log(isAuthenticated);
     resetForm();
   };
 
@@ -80,7 +80,7 @@ const Login = () => {
         <LockOutlined />
       </Avatar>
       <Typography sx={{ margin: "1rem" }} variant="h4">
-        Sign Up
+        Sign In
       </Typography>
       <Formik
         initialValues={initialValues}

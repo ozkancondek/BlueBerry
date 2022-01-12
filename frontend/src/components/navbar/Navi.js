@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Container, Form, FormControl, Nav, Navbar } from "react-bootstrap";
 import "./Navi.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSearch } from "../../providers/SearchProvider";
 import { useOut } from "../../providers/MainProvider";
-import { FaRaspberryPi } from "react-icons/fa";
+import { FaRaspberryPi, FaUserCircle } from "react-icons/fa";
 import { Toggle } from "../toggleButton/Toggle";
 
 export const Navi = () => {
@@ -13,10 +13,15 @@ export const Navi = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { isAuthenticated } = useOut();
+  const { isAuthenticated, setIsAutenticated } = useOut();
 
   const filterCity = (e) => {
     setVal(e.target.value);
+  };
+
+  const signOut = () => {
+    setIsAutenticated(false);
+    navigate("/signin");
   };
 
   return (
@@ -51,15 +56,22 @@ export const Navi = () => {
             <Nav.Link className="underline" eventKey="cities">
               Places
             </Nav.Link>
-            <Nav.Link className="underline" eventKey="yourchoices">
-              Your Choices
-            </Nav.Link>
+            {isAuthenticated && (
+              <Nav.Link className="underline" eventKey="yourchoices">
+                Your Choices
+              </Nav.Link>
+            )}
+            {isAuthenticated && (
+              <Nav.Link className="underline" eventKey="forum">
+                Forum
+              </Nav.Link>
+            )}
 
-            <Nav.Link className="underline" eventKey="services">
-              Services
-            </Nav.Link>
             <Nav.Link className="underline" eventKey="contact">
               Contact
+            </Nav.Link>
+            <Nav.Link className="underline" eventKey="about">
+              About
             </Nav.Link>
           </Nav>
           {/* {navigate("/cities") && (
@@ -84,16 +96,33 @@ export const Navi = () => {
           </Form>
 
           {/* {isAuthenticated && <Nav.Link eventKey="signup">Signup</Nav.Link>} */}
-          <Nav.Link eventKey="signin">Sign-in</Nav.Link>
-          <Nav.Link
-            style={{ border: "1px solid white", borderRadius: "5px" }}
-            eventKey="signup"
-          >
-            Sign-up
-          </Nav.Link>
-          <div className="toggleDiv">
-            <Toggle />
-          </div>
+          {!isAuthenticated ? (
+            <>
+              <Nav.Link eventKey="signin">Sign-in</Nav.Link>
+              <Nav.Link
+                style={{ border: "1px solid white", borderRadius: "5px" }}
+                eventKey="signup"
+              >
+                Sign-up
+              </Nav.Link>
+            </>
+          ) : (
+            <Nav.Link eventKey="signin" onClick={() => signOut()}>
+              Sign-out
+              {
+                <FaUserCircle
+                  style={{
+                    marginLeft: "15px",
+                    width: "30px",
+                    height: "30px",
+                    color: "white",
+                  }}
+                />
+              }
+            </Nav.Link>
+          )}
+
+          <div className="toggleDiv">{/*  <Toggle /> */}</div>
         </Navbar.Collapse>
       </Container>
     </Navbar>
