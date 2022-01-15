@@ -2,8 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap");
 
 .main-container {
-  min-height: 100vh;
-
   display: flex;
   font-family: "Oswald", sans-serif;
   flex-direction: column;

@@ -28,8 +28,6 @@ const App = () => {
 
   const { isAuthenticated } = useOut();
 
-  console.log(isAuthenticated);
-
   return (
     <div
       style={{

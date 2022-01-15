@@ -7,7 +7,7 @@ import { useApi } from "../providers/ApiProvider";
 import { useOut } from "../providers/MainProvider";
 import "./pages.css";
 export const Forum = () => {
-  const [comments, setComments] = useState();
+  const [comments, setComments] = useState([]);
   const [places, setPlaces] = useState([]);
   const { getPost } = useApi();
   const { date } = useOut();
@@ -15,7 +15,7 @@ export const Forum = () => {
   useEffect(() => {
     const getAllCommentsFromBackend = async (id) => {
       try {
-        let res = await axios("http://localhost:4000/api/cities/comments");
+        let res = await axios("http://localhost:4000/api/city/comments");
 
         setComments(res.data);
       } catch (error) {
@@ -32,25 +32,25 @@ export const Forum = () => {
     };
     fetch();
     getAllCommentsFromBackend();
-  }, [getPost]);
+  }, []);
 
   console.log(comments);
 
   return (
     <div>
-      {comments.map((comment) => {
+      {comments.map((com) => {
         return (
           <div className="main-container">
             <div className="comment-card">
               <div className="header">
                 <h4>
                   {<FaUserCircle />}
-                  {comment.username} commented about{" "}
-                  {places.find((c) => comment.cityId === c.id)}
+                  {com.username} commented about{" "}
+                  {places.find((c) => c.id === com.cityid)}
                 </h4>
                 <h4> {date}</h4>
               </div>
-              <p>{comment.comment}</p>
+              <p>{com.comment}</p>
               <div className="icon-bar">
                 <AiOutlineLike className="icon" />
                 <AiOutlineDislike className="icon" />

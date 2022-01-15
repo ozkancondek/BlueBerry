@@ -10,6 +10,7 @@ app.use(cors());
 const comments = [
   { cityId: 5, comment: "iyi", username: "at" },
   { cityId: 5, comment: "kotu", username: "ozkan" },
+  { cityId: 6, comment: "dd", username: "ozkddan" },
 ];
 
 const users = [];
@@ -112,7 +113,7 @@ app.post("/api/city/newplace", function (req, res) {
 
   data = [
     ...data,
-    { desc: desc, id: data.length + 1, image: image, title: title },
+    { desc: desc, cityid: data.length + 1, image: image, title: title },
   ];
   //res.send("Place added successfully");
   res.send(data);

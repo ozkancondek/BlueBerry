@@ -8,18 +8,22 @@ import { Home } from "../pages/Home";
 import { SignIn } from "../pages/Signin";
 import { SignUp } from "../pages/SignUp";
 import { YourChoices } from "../pages/YourChoices";
+import { useOut } from "../providers/MainProvider";
 
 export const AllRoutes = () => {
+  const { isAuthenticated } = useOut();
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/yourchoices" element={<YourChoices />} />
+      {isAuthenticated && (
+        <Route path="/yourchoices" element={<YourChoices />} />
+      )}
 
       <Route path="/:clickcity/:cityid" element={<ClickCity />} />
       <Route path="/cities" element={<Cities />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signin" element={<SignIn />} />
-      <Route path="/forum" element={<Forum />} />
+      {isAuthenticated && <Route path="/forum" element={<Forum />} />}
     </Routes>
   );
 };
