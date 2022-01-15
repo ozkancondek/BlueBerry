@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../components/cards/Cards.css";
 import { Card } from "../components/cards/Card";
 
 import { useOut } from "../providers/MainProvider";
 
 import { ChooseCity } from "../components/chooseCity/ChooseCity";
+import { useApi } from "../providers/ApiProvider";
 
 export const YourChoices = () => {
-  const { favList, data } = useOut();
+  const [data, setdata] = useState([]);
+  const { getPost } = useApi();
+  const { favList } = useOut();
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        let res = await getPost();
+
+        setdata(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetch();
+  }, []);
 
   const favCities = data
     .filter((card) => favList.includes(card.id))

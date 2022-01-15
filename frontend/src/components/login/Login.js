@@ -48,22 +48,23 @@ const Login = () => {
           "http://localhost:4000/api/users/signin",
           user
         );
+
         setIsAutenticated(true);
         let data = res.data;
         console.log(data);
+        navigate("/");
       } catch (error) {
         setIsAutenticated(false);
-        setErrorMessage(error);
+        setErrorMessage(error.message);
       }
     };
     authfFunc();
-    navigate("/");
 
     console.log(isAuthenticated);
     resetForm();
   };
 
-  console.log(errorMessage);
+  //console.log(errorMessage);
 
   return (
     <Container

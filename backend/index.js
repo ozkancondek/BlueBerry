@@ -45,8 +45,7 @@ app.post("/api/users/signup", function (req, res) {
   const { username, email, password } = req.body;
   const user = users.find((u) => u.email === email);
   if (user) {
-    //res.status(409).json({ message: "You have already an account" });
-    res.send("There is aldready  an account with this email adress");
+    res.status(409).json({ message: "You have already an account" });
 
     return;
   } else {
@@ -64,17 +63,18 @@ app.post("/api/users/signin", function (req, res) {
   const { email, password } = req.body;
   const user = users.find((u) => u.email === email);
   if (!user) {
-    // res.status(401).json({ message: "There is no account with this email" });
-    res.send("There is no account with this email");
+    res.status(401).json({ message: "There is no account with this email" });
+    //res.send("There is no account with this email");
     return;
   } else {
     const isCorrectPass = bcrypt.compareSync(password, user.password); // true
     if (isCorrectPass) {
-      // res.json({ message: "success", res: isCorrectPass });
-      res.send(`Signed as ${user.username}`);
+      res.json({ message: `Signed as ${user.username}`, res: isCorrectPass });
+      // res.send(`Signed as ${user.username}`);
     } else {
-      // res.status(403).json({ message: "Wrong pass" });
-      res.send("Wrong password");
+      res.status(403).json({ message: "Wrong pass" });
+
+      // res.send("Wrong password");
     }
   }
 });
@@ -114,7 +114,8 @@ app.post("/api/city/newplace", function (req, res) {
     ...data,
     { desc: desc, id: data.length + 1, image: image, title: title },
   ];
-  res.send("Place added successfully");
+  //res.send("Place added successfully");
+  res.send(data);
 });
 
 //user makes a request

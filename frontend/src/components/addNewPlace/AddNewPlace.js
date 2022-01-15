@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
 export const AddNewPlace = ({ setShowAddCity }) => {
+  const location = useLocation();
   const [imgUrl, setImgUrl] = useState("");
   const [placeName, setPlaceName] = useState("");
   const [desc, setDesc] = useState("");
@@ -21,6 +23,7 @@ export const AddNewPlace = ({ setShowAddCity }) => {
           city
         );
         let data = res.data;
+        location.reload();
         console.log(data);
       } catch (error) {
         console.log(error);

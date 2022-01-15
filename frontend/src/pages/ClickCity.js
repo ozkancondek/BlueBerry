@@ -20,10 +20,13 @@ import { useOut } from "../providers/MainProvider";
 import "./pages.css";
 import { Button } from "react-bootstrap";
 import axios from "axios";
+import { useApi } from "../providers/ApiProvider";
 
 export const ClickCity = () => {
   const { isAuthenticated, date } = useOut();
   const [comments, setComments] = useState([]);
+
+  const [filteredCity, setFilteredCity] = useState([]);
   const [cityById, setCityById] = useState([]);
 
   //const[filteredCity,setFilteredCity] = useState()
@@ -49,15 +52,26 @@ export const ClickCity = () => {
     }
   };
 
+  //get all cities and assign it to data
+  const fetch = async () => {
+    try {
+      let res = await axios(
+        "http://localhost:4000/api/cities/" + parseInt(params.cityid)
+      );
+      //setData(res);
+      setFilteredCity(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     commentsById(filteredCity.id);
-
+    fetch();
     getCityByIdFromBackend();
   }, []);
 
   //console.log(cityById);
-
-  console.log(comments);
 
   //post the comment
   const handleSubmit = (e) => {
@@ -85,12 +99,10 @@ export const ClickCity = () => {
     e.preventDefault();
   };
 
-  const { data } = useOut();
-
   const navigate = useNavigate();
   const { setFavList, favList, showComment, setShowComment } = useOut();
 
-  const filteredCity = data.find((c) => c.id === +params.cityid);
+  console.log(filteredCity);
 
   const changeColor = (e) => {
     e.stopPropagation();
