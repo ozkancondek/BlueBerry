@@ -128,8 +128,6 @@ export const ClickCity = () => {
     } else {
       setShowComment(true);
     }
-
-    console.log(showComment);
   };
 
   const isFavorite = favList.includes(filteredCity.id);
