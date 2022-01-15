@@ -46,16 +46,16 @@ app.post("/api/users/signup", function (req, res) {
   const user = users.find((u) => u.email === email);
   if (user) {
     //res.status(409).json({ message: "You have already an account" });
-    res.send("You have already an account");
+    res.send("There is aldready  an account with this email adress");
 
     return;
   } else {
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(password, salt);
 
-    users = [...users, { username, email, password: hash }];
+    users.push({ username: username, email: email, password: hash });
 
-    res.send("Account created");
+    res.send("Account created. You can log in now.");
   }
 });
 
@@ -64,7 +64,8 @@ app.post("/api/users/signin", function (req, res) {
   const { email, password } = req.body;
   const user = users.find((u) => u.email === email);
   if (!user) {
-    res.status(401).json({ message: "There is no account with this email" });
+    // res.status(401).json({ message: "There is no account with this email" });
+    res.send("There is no account with this email");
     return;
   } else {
     const isCorrectPass = bcrypt.compareSync(password, user.password); // true
@@ -72,7 +73,8 @@ app.post("/api/users/signin", function (req, res) {
       // res.json({ message: "success", res: isCorrectPass });
       res.send(`Signed as ${user.username}`);
     } else {
-      res.status(403).json({ message: "Wrong pass" });
+      // res.status(403).json({ message: "Wrong pass" });
+      res.send("Wrong password");
     }
   }
 });
@@ -83,7 +85,8 @@ app.post("/api/city/comments", function (req, res) {
 
   comments.push({ cityId, comment, username });
 
-  res.send(comments);
+  // res.send(comments);
+  res.send("New city added");
 });
 
 //show all commnets
@@ -102,5 +105,18 @@ app.get("/api/city/comments/:id", function (req, res) {
     res.send(commentsById);
   }
 });
+
+//add new place
+app.post("/api/city/newplace", function (req, res) {
+  const { image, title, desc } = req.body;
+
+  data = [
+    ...data,
+    { desc: desc, id: data.length + 1, image: image, title: title },
+  ];
+  res.send("Place added successfully");
+});
+
+//user makes a request
 
 app.listen(4000, () => console.log("listening"));

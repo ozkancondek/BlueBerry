@@ -1,7 +1,36 @@
-import React from "react";
+import axios from "axios";
+import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
-export const AddNewPlace = () => {
+export const AddNewPlace = ({ setShowAddCity }) => {
+  const [imgUrl, setImgUrl] = useState("");
+  const [placeName, setPlaceName] = useState("");
+  const [desc, setDesc] = useState("");
+
+  const handleSubmit = (e) => {
+    const postCity = async () => {
+      let city = {
+        desc: desc,
+        image: imgUrl,
+        title: placeName,
+      };
+
+      try {
+        let res = await axios.post(
+          "http://localhost:4000/api/city/newplace",
+          city
+        );
+        let data = res.data;
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    postCity();
+    setTimeout(() => setShowAddCity(false), 3000);
+
+    e.preventDefault();
+  };
   return (
     <div
       style={{
@@ -11,18 +40,36 @@ export const AddNewPlace = () => {
         padding: "10px",
       }}
     >
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Add Image URL</Form.Label>
-          <Form.Control type="text" placeholder="Image URL" />
+          <Form.Control
+            type="text"
+            placeholder="Image URL"
+            onChange={(e) => {
+              setImgUrl(e.target.value);
+            }}
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Add Place Name</Form.Label>
-          <Form.Control type="text" placeholder="Place name" />
+          <Form.Control
+            type="text"
+            placeholder="Place name"
+            onChange={(e) => {
+              setPlaceName(e.target.value);
+            }}
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Add Some Description</Form.Label>
-          <Form.Control type="text" placeholder="Add description" />
+          <Form.Control
+            type="text"
+            placeholder="Add description"
+            onChange={(e) => {
+              setDesc(e.target.value);
+            }}
+          />
         </Form.Group>
 
         <Button variant="secondary" type="submit">
@@ -32,6 +79,3 @@ export const AddNewPlace = () => {
     </div>
   );
 };
-
-//button or this component
-//change visibility

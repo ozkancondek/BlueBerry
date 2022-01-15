@@ -17,6 +17,8 @@ import { useEffect, useState } from "react";
 import { AddNewPlace } from "../addNewPlace/AddNewPlace";
 
 export const Cards = () => {
+  const { isAuthenticated } = useOut();
+  const [showAddCity, setShowAddCity] = useState(false);
   const { favList, setPageNum, pageNum } = useOut();
   const { getPost } = useApi();
 
@@ -28,12 +30,14 @@ export const Cards = () => {
     const fetch = async () => {
       try {
         let res = await getPost(pageNum);
+
         setPlaces(res);
       } catch (error) {
         console.log(error);
       }
     };
     fetch();
+    console.log(places);
   }, [getPost, pageNum]);
 
   const filteredData = places
@@ -48,6 +52,10 @@ export const Cards = () => {
         />
       );
     });
+
+  const toggleAddCityCard = () => {
+    showAddCity ? setShowAddCity(false) : setShowAddCity(true);
+  };
   return (
     <div>
       <TextPhotoContainer>
@@ -62,10 +70,14 @@ export const Cards = () => {
       </TextPhotoContainer>
 
       <div className="add-new-place-button">
-        <Button variant="secondary">Add New Place</Button>
+        {isAuthenticated && (
+          <Button variant="secondary" onClick={() => toggleAddCityCard()}>
+            Add New Place
+          </Button>
+        )}
       </div>
       <div>
-        <AddNewPlace />
+        {showAddCity && <AddNewPlace setShowAddCity={setShowAddCity} />}
       </div>
 
       <Container className="text-center mt-4 height:500px">

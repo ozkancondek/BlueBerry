@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { LockOutlined } from "@mui/icons-material";
 import {
   Avatar,
@@ -29,6 +29,7 @@ const signUpValidationSchema = Yup.object().shape({
     .matches(/[!?.@#$%^&*()-+]+/, "Password must have a special char"),
 });
 const Login = () => {
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const { isAuthenticated, setIsAutenticated } = useOut();
   const initialValues = {
@@ -47,18 +48,22 @@ const Login = () => {
           "http://localhost:4000/api/users/signin",
           user
         );
+        setIsAutenticated(true);
         let data = res.data;
         console.log(data);
       } catch (error) {
-        console.log(error);
+        setIsAutenticated(false);
+        setErrorMessage(error);
       }
     };
     authfFunc();
     navigate("/");
-    setIsAutenticated(true);
+
     console.log(isAuthenticated);
     resetForm();
   };
+
+  console.log(errorMessage);
 
   return (
     <Container

@@ -14,7 +14,7 @@ export const Footer = () => {
       <footer className="footer-distributed">
         <div className="footer-left">
           <h3>
-            <FaRaspberryPi /> Blue <span>Berry</span>
+            <FaRaspberryPi /> Blue<span>Berry</span>
           </h3>
 
           <p className="footer-links">

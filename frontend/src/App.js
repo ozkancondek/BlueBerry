@@ -6,7 +6,7 @@ import { Navi } from "./components/navbar/Navi";
 
 import { ApiProvider } from "./providers/ApiProvider";
 
-import { MainProvider } from "./providers/MainProvider";
+import { MainProvider, useOut } from "./providers/MainProvider";
 import { SearchProvider } from "./providers/SearchProvider";
 import { ThemeProvider, useTheme } from "./providers/ThemeProvider";
 
@@ -25,6 +25,10 @@ const App = () => {
   // }, [getPost]);
 
   const { theme } = useTheme();
+
+  const { isAuthenticated } = useOut();
+
+  console.log(isAuthenticated);
 
   return (
     <div

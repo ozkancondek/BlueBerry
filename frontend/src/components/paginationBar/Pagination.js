@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useApi } from "../../providers/ApiProvider";
 import { useOut } from "../../providers/MainProvider";
 import { PaginationBar } from "./paginationStyle";
@@ -16,12 +16,15 @@ export const Pagination = () => {
       console.log(error);
     }
   };
-  fetch();
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   let cardNumberInPage = 20;
 
   let items = [];
-  for (let i = 1; i <= lenData / cardNumberInPage; i++) {
+  for (let i = 1; i <= Math.ceil(lenData / cardNumberInPage); i++) {
     items = [...items, i];
   }
 
